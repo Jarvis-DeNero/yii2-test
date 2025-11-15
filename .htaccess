@@ -11,8 +11,8 @@ AddHandler application/x-httpd-php74 .php
   # Включаем mod_rewrite
   RewriteEngine On
   IndexIgnore */*
-  RewriteCond %{HTTP_HOST} ^www\.delta-hotelsev\.ru$ [NC]
-  RewriteRule ^(.*)$ https://delta-hotelsev.ru/$1 [R=301,L]
+  # RewriteCond %{HTTP_HOST} ^www\.delta-hotelsev\.ru$ [NC]
+  # RewriteRule ^(.*)$ https://delta-hotelsev.ru/$1 [R=301,L]
   # Перенаправляем _root на входной скрипт админки
   RewriteRule ^_root(.*)?$ /backend/web/$1 [L,PT]
   # Перенаправляем все запросы на входной скрипт
