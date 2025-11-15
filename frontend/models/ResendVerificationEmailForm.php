@@ -42,16 +42,25 @@ class ResendVerificationEmailForm extends Model
             'email' => $this->email,
             'status' => User::STATUS_INACTIVE
         ]);
-
+    
         if ($user === null) {
             return false;
         }
-
+    
+        // создаём ссылку для подтверждения email
+        $verifyLink = Yii::$app->urlManager->createAbsoluteUrl([
+            'site/verify-email',
+            'token' => $user->verification_token
+        ]);
+    
         return Yii::$app
             ->mailer
             ->compose(
                 ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
+                [
+                    'user' => $user,
+                    'verifyLink' => $verifyLink, // ← добавили переменную для шаблона
+                ]
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
             ->setTo($this->email)
